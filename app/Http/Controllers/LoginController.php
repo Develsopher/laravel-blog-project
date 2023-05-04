@@ -63,6 +63,6 @@ class LoginController extends Controller
 
     public function test()
     {
-        return 'test 페이지 입니다..';
+        return 'test 페이지 입니다.';
     }
 }
