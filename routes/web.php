@@ -16,6 +16,7 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::get('/', [LoginController::class, 'index'])->name('home');
-Route::post('/signup', [LoginController::class, 'signup']);
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/signup', [LoginController::class, 'signup'])->middleware('guest');
+Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
+Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
+Route::get('/test', [LoginController::class, 'test'])->middleware('mustlogin');

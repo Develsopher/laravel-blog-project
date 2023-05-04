@@ -60,4 +60,9 @@ class LoginController extends Controller
         auth()->logout();
         return redirect('/')->with('success', 'You have successfully logged out.');
     }
+
+    public function test()
+    {
+        return 'test 페이지 입니다..';
+    }
 }
