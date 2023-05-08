@@ -13,7 +13,7 @@
 
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="flex items-center justify-between mx-10 p-4">
-            <a href="#" class="flex items-center">
+            <a href="{{ route('home') }}" class="flex items-center">
                 <img src="/images/code-break.svg" class="h-8 mr-3" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Develsopher's
                     Blog</span>
@@ -38,12 +38,13 @@
                         </li>
                     </ul>
                     <div class=" ml-4 flex items-center space-x-2">
-                        <img src="images/lion.png" alt="avatar" class="w-10 h-10">
-                        <p class="text-white">{{ auth()->user()->name }}님 환영합니다.</p>
+                        <img src="/images/lion.png" alt="avatar" class="w-10 h-10">
+                        <p class="text-white"><span class="text-indigo-400">Welcome,</span> {{ auth()->user()->name }}</p>
                     </div>
+                    <button type="button" onclick="location.href='{{ route('post.create') }}'" class="ml-4 text-white bg-blue-800 hover:bg-blue-400 focus:outline-none rounded-lg text-sm px-5 py-2.5 text-center">Create Post</button>
                     <form action="/logout" method="POST" class="">
                         @csrf
-                        <button class="ml-4 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none rounded-lg text-sm px-5 py-2.5 text-center">Sign Out</button>
+                        <button class="ml-4 text-white bg-gray-800 hover:bg-gray-400 focus:outline-none rounded-lg text-sm px-5 py-2.5 text-center">Sign Out</button>
                     </form>
                 @else
                     {{-- 로그인 폼 --}}

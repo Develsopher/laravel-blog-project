@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PostsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,11 @@ Route::post('/signup', [LoginController::class, 'signup'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/test', [LoginController::class, 'test'])->middleware('mustlogin');
+
+Route::get('/post/create', [PostsController::class, 'create'])->name('post.create')->middleware('auth');
+Route::post('/post/store', [PostsController::class, 'store'])->name('post.store')->middleware('auth');
+Route::get('/post/{post}', [PostsController::class, 'show'])->name('post.show');
+Route::get('/post/{post}/edit', [PostsController::class, 'edit'])->name('post.edit');
+// Route::put('/post/{post}', [PostsController::class, 'update'])->middleware('can:update,post');
+Route::put('/post/{post}', [PostsController::class, 'update'])->middleware('can:update,post');
+Route::delete('/post/{post}', [PostsController::class, 'delete'])->middleware('can:delete,post');
