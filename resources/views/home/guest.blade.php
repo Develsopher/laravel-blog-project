@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="flex bg-gray-700 h-screen">
+    <div class="flex bg-gray-700">
         <div class="bg-gray-900 w-1/2 flex flex-col justify-center items-center">
             <p class="text-white text-3xl">현재 가입한 멤버 총 x 명</p>
             <p class="text-white text-3xl">현재 작성된 게시글 수 총 x개</p>

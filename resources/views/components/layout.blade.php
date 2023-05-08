@@ -93,8 +93,7 @@
     @endif
 
     {{ $slot }}
-
-    <footer class="w-full border-top bg-white border-gray-200 dark:bg-gray-900 text-center small text-muted py-3">
+    <footer class="w-full border-top bg-gray-900 text-center small text-muted py-3">
         <p class="m-0 text-white">Copyright &copy; {{ date('Y') }} <a href="/" class="text-muted">OurApp</a>.
             All rights reserved.
         </p>

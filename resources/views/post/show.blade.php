@@ -1,34 +1,22 @@
 <x-layout>
-    <div class="h-screen bg-gray-700 p-10">
+    <div class=" bg-gray-700 p-10">
+        <div class="mt-2 flex justify-end items-center space-x-2">
+            @can('update', $post)
+                <button type="button" id="edit_button">수정하기</button>
+            @endcan
+            @can('delete', $post)
+                <form id="delete_form" action="/post/{{ $post->id }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                <button type="button" onclick="handleDelete()"><img class="w-5 h-5" src="/images/delete-icon.svg" /></button>
+            @endcan
+        </div>
+
         <form action="/post/{{ $post->id }}" method="POST">
-            @csrf
-            @method('DELETE')
-            <button type="submit"><img class="w-5 h-5" src="/images/delete-icon.svg" /></button>
-        </form>
-        <form action="/post/update" method="POST">
             @csrf
             @method('PUT')
             <h1 class="text-3xl text-center text-white">The Post # {{ $post->id }}</h1>
-
-            <div class="mt-2 flex justify-center items-center space-x-2">
-                @can('update', $post)
-                    {{-- <a id="edit_button" class="cursor-pointer flex gap-4" value="off" onclick="handleEdit()"><img class="w-5 h-5" src="/images/edit-icon.svg" /></a> --}}
-                    <button type="button" id="edit_button">수정하기</button>
-                @endcan
-                {{-- @can('delete', $post) --}}
-                {{-- @endcan --}}
-            </div>
-
-            @if (session()->has('success'))
-                <div class="w-full py-4 mt-2">
-                    <div class="w-80 bg-gray-500 shadow-inner shadow-gray-500/50 ml-auto mr-auto rounded-lg">
-                        <p class="text-center text-white">
-                            {{ session('success') }}
-                        </p>
-                    </div>
-                </div>
-            @endif
-
             <div class="space-y-8 mt-8 px-52">
                 <div>
                     <label for="title" class="block mb-2 text-md font-medium text-white">Title</label>
@@ -67,7 +55,7 @@
         e.target.classList.toggle("bg-red-400");
         e.target.innerText = e.target.innerText.trim() === "수정 중" ? "수정하기" : "수정 중";
 
-        if(e.target.classList.contains('bg-red-400')){
+        if (e.target.classList.contains('bg-red-400')) {
             document.getElementsByName('title')[0].removeAttribute('disabled');
             document.getElementsByName('content')[0].removeAttribute('disabled');
             saveBtn.classList.remove('hidden');
@@ -78,5 +66,13 @@
         }
 
     }
-    // editBtn.addEventListener("click", buttonPressed);
+    if(editBtn) {
+        editBtn.addEventListener("click", buttonPressed);
+    }
+
+    function handleDelete() {
+        if(confirm('해당 게시글을 정말 삭제하시겠습니까?')){
+            document.getElementById('delete_form').submit();
+        }
+    }
 </script>

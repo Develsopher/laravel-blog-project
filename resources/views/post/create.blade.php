@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="h-screen bg-gray-700 p-10">
+    <div class="bg-gray-700 p-10">
         <form action="/post/store" method="POST">
             @csrf
             <h1 class="text-3xl text-center text-white">Let's Write !</h1>

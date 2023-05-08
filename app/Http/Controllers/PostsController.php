@@ -75,20 +75,17 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        dd('???');
         $incomingFields = $request->validate([
             'title' => 'required',
             'content' => 'required'
         ]);
 
         $incomingFields['title'] = strip_tags($incomingFields['title']);
-        $incomingFields['body'] = strip_tags($incomingFields['body']);
+        $incomingFields['content'] = strip_tags($incomingFields['content']);
 
         $post->update($incomingFields);
-        dd($post->id);
-        // return view('post.show', ['post' => $post])->with('success', 'You edited successfully :)');
 
-        return redirect("/post/{$post->id}");
+        return redirect("/post/{$post->id}")->with('success', 'You edited successfully :)');
     }
 
     /**
@@ -99,14 +96,8 @@ class PostsController extends Controller
      */
     public function delete(Post $post)
     {
-        // if (auth()->user()->cannot('delete', $post)) {
-        //     return 'You cannot';
-        // }
         $post->delete();
 
-
-        return 'deleted';
-        // return redirect('/post/' . $post->id)->with
-        // return view('home');
+        return redirect("/")->with('success', 'You deleted successfully :>');
     }
 }
