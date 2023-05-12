@@ -58,7 +58,7 @@
                         </div>
                         <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
                                 href="{{ route('post.show', $post->id) }}">{{ $post->title }}</a></h2>
-                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ $post->content }}</p>
+                        <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ Str::limit($post->content, 100) }}</p>
                         <div class="flex justify-between items-center">
                             <div class="flex items-center space-x-4">
                                 <a href="{{ route('user.posts', $user->name) }}" class="flex gap-4">
