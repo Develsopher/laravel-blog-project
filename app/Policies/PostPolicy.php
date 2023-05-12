@@ -52,6 +52,10 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
+        // 관리자는 모든 게시글의 수정 권한이 있다.
+        if($user->isAdmin === 1) {
+            return true;
+        }
         return $user->id === $post->user_id;
     }
 
@@ -64,6 +68,10 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
+        // 관리자는 모든 게시글의 삭제 권한이 있다.
+        if($user->isAdmin === 1) {
+            return true;
+        }
         return $user->id === $post->user_id;
     }
 

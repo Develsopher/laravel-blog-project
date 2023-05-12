@@ -49,7 +49,12 @@ class LoginController extends Controller
         if (auth()->attempt(['email' => $incomingFields['email'], 'password' => $incomingFields['password']])) {
             $request->session()->regenerate();
             // event(new OurExampleEvent(['username' => auth()->user()->name, 'action' => 'login']));
-            return redirect('/')->with('success', 'You have successfully logged in.');
+            $user = User::where('email', $incomingFields['email'])->first();
+            if($user->isAdmin === 1) {
+                return redirect('/admin');
+            }else {
+                return redirect('/')->with('success', 'You have successfully logged in.');
+            }
         } else {
             return redirect('/')->with('failure', 'Invalid Login.');
         }
@@ -64,5 +69,10 @@ class LoginController extends Controller
     public function test()
     {
         return 'test 페이지 입니다.';
+    }
+
+    public function admin()
+    {
+        return view('home.admin');
     }
 }

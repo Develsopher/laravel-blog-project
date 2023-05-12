@@ -22,6 +22,8 @@ Route::post('/signup', [LoginController::class, 'signup'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');
 Route::get('/test', [LoginController::class, 'test'])->middleware('mustlogin');
+// 관리자 전용페이지
+Route::get('/admin', [LoginController::class, 'admin'])->name('admin')->middleware('can:onlyAdmin');
 
 Route::get('/post/create', [PostsController::class, 'create'])->name('post.create')->middleware('auth');
 Route::post('/post/store', [PostsController::class, 'store'])->name('post.store')->middleware('auth');
