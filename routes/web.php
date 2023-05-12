@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::get('/test', [LoginController::class, 'test'])->middleware('mustlogin');
 Route::get('/post/create', [PostsController::class, 'create'])->name('post.create')->middleware('auth');
 Route::post('/post/store', [PostsController::class, 'store'])->name('post.store')->middleware('auth');
 Route::get('/post/{post}', [PostsController::class, 'show'])->name('post.show');
-Route::get('/post/{post}/edit', [PostsController::class, 'edit'])->name('post.edit');
-// Route::put('/post/{post}', [PostsController::class, 'update'])->middleware('can:update,post');
 Route::put('/post/{post}', [PostsController::class, 'update'])->middleware('can:update,post');
 Route::delete('/post/{post}', [PostsController::class, 'delete'])->middleware('can:delete,post');
+
+Route::get('/{user:name}/posts', [UserController::class, 'posts'])->name('user.posts')->middleware('auth');

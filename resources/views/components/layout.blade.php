@@ -9,7 +9,7 @@
     @vite('resources/js/app.js')
 </head>
 
-<body>
+<body class="h-screen">
 
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="flex items-center justify-between mx-10 p-4">
@@ -38,7 +38,9 @@
                         </li>
                     </ul>
                     <div class=" ml-4 flex items-center space-x-2">
-                        <img src="/images/lion.png" alt="avatar" class="w-10 h-10">
+                        <a href="/{{ auth()->user()->name }}/posts" role="button">
+                            <img src="/images/lion.png" alt="avatar" class="w-10 h-10">
+                        </a>
                         <p class="text-white"><span class="text-indigo-400">Welcome,</span> {{ auth()->user()->name }}</p>
                     </div>
                     <button type="button" onclick="location.href='{{ route('post.create') }}'" class="ml-4 text-white bg-blue-800 hover:bg-blue-400 focus:outline-none rounded-lg text-sm px-5 py-2.5 text-center">Create Post</button>
