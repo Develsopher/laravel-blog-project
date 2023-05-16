@@ -39,7 +39,7 @@
                     </ul>
                     <div class=" ml-4 flex items-center space-x-2">
                         <a href="/{{ auth()->user()->name }}/posts" role="button">
-                            <img src="/images/lion.png" alt="avatar" class="w-10 h-10">
+                            <img src="/storage/avatars/{{ auth()->user()->avatar }}" alt="avatar" class="w-10 h-10 rounded-full">
                         </a>
                         <p class="text-white"><span class="text-indigo-400">Welcome,</span> {{ auth()->user()->name }}</p>
                     </div>

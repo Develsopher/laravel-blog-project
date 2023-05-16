@@ -25,10 +25,14 @@ Route::get('/test', [LoginController::class, 'test'])->middleware('mustlogin');
 // 관리자 전용페이지
 Route::get('/admin', [LoginController::class, 'admin'])->name('admin')->middleware('can:onlyAdmin');
 
+// About Posting
 Route::get('/post/create', [PostsController::class, 'create'])->name('post.create')->middleware('auth');
 Route::post('/post/store', [PostsController::class, 'store'])->name('post.store')->middleware('auth');
 Route::get('/post/{post}', [PostsController::class, 'show'])->name('post.show');
 Route::put('/post/{post}', [PostsController::class, 'update'])->middleware('can:update,post');
 Route::delete('/post/{post}', [PostsController::class, 'delete'])->middleware('can:delete,post');
 
+// About User
 Route::get('/{user:name}/posts', [UserController::class, 'posts'])->name('user.posts')->middleware('auth');
+Route::get('/users/manageAvatar', [UserController::class, 'manageAvatar'])->name('user.avatar')->middleware('auth');
+Route::post('/users/uploadAvatar', [UserController::class, 'uploadAvatar'])->name('user.avatar.upload')->middleware('auth');
