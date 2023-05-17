@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class, 'user_id');
     }
+
+    public function getAvatarAttribute($value)
+    {
+        return $value ? '/storage/avatars/'. $value : '/avatar-fallback.jpg';
+    }
 }
