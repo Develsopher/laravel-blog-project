@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FollowController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -36,3 +37,7 @@ Route::delete('/post/{post}', [PostsController::class, 'delete'])->middleware('c
 Route::get('/{user:name}/posts', [UserController::class, 'posts'])->name('user.posts')->middleware('auth');
 Route::get('/users/manageAvatar', [UserController::class, 'manageAvatar'])->name('user.avatar')->middleware('auth');
 Route::post('/users/uploadAvatar', [UserController::class, 'uploadAvatar'])->name('user.avatar.upload')->middleware('auth');
+
+// Follow
+Route::post('/follow/{user:name}', [FollowController::class, 'follow'])->name('follow')->middleware('auth');
+Route::post('/unfollow/{user:name}', [FollowController::class, 'unfollow'])->name('unfollow')->middleware('auth');

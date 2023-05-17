@@ -1,4 +1,4 @@
-<x-profile_header :user="$user" :postCount="$postCount">
+<x-profile_header :user="$user" :postCount="$postCount" :isFollowing="$isFollowing">
     <div class="grid gap-8 lg:grid-cols-2 mt-4">
         @foreach ($posts as $post)
             <article
@@ -46,9 +46,9 @@
             </article>
         @endforeach
     </div>
-    @if (empty($posts))
+    @if($postCount < 1)
         <div class="ml-auto mr-auto rounded-lg border border-gray-200 shadow-md dark:bg-gray-900 dark:border-gray-700">
-            <h1 class="text-center text-white text-3xl font-semibold p-10">No Contens. :<< /h1>
+            <h1 class="text-center text-white text-3xl font-semibold p-10">No Contens. :< </h1>
         </div>
     @endif
 </x-profile_header>

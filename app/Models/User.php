@@ -51,4 +51,14 @@ class User extends Authenticatable
     {
         return $value ? $value : '/avatar-fallback.jpg';
     }
+
+    public function followers()
+    {
+        return $this->hasMany(Follow::class, 'followedUser');
+    }
+
+    public function following()
+    {
+        return $this->hasMany(Follow::class, 'user_id');
+    }
 }

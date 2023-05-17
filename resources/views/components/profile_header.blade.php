@@ -12,19 +12,34 @@
                     @auth
                         {{-- 본인일 경우, 아바타 수정이 가능하다. --}}
                         @if ($user->name == auth()->user()->name)
-                            <a href="{{ route('user.avatar') }}" role="button" class="rounded-lg text-white bg-blue-800 hover:bg-blue-400 focust:outlien-none text-sm px-5 py-2.5 text-center">
+                            <a href="{{ route('user.avatar') }}" role="button"
+                                class="rounded-lg text-white bg-blue-800 hover:bg-blue-400 focust:outlien-none text-sm px-5 py-2.5 text-center">
                                 Manage Avatar
                             </a>
+                        @elseif($isFollowing)
+                            <form action="{{ route('unfollow', $user->name) }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                    class="rounded-lg text-white bg-red-800 hover:bg-red-400 focust:outlien-none text-sm px-5 py-2.5 text-center">-
+                                    Unfollow</button>
+                            </form>
+                        @else
+                            <form action="{{ route('follow', $user->name) }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                    class="rounded-lg text-white bg-blue-800 hover:bg-blue-400 focust:outlien-none text-sm px-5 py-2.5 text-center">+
+                                    Follow</button>
+                            </form>
                         @endif
 
-                        {{-- follow / unfollow action button --}}
+
                     @endauth
                 </div>
                 {{-- headers's posting count --}}
-                <div class="flex flex-col justify-center items-center">
+                <a href="{{ route('user.posts', $user->name) }}" class="flex flex-col justify-center items-center">
                     <p class="text-white">Posts</p>
                     <p class="text-white text-xl font-semibold">{{ $postCount }}</p>
-                </div>
+                </a>
                 {{-- header's followers count --}}
                 <div class="flex flex-col justify-center items-center">
                     <p class="text-white">Followers</p>
