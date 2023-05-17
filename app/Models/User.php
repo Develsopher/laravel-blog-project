@@ -49,6 +49,6 @@ class User extends Authenticatable
 
     public function getAvatarAttribute($value)
     {
-        return $value ? '/storage/avatars/'. $value : '/avatar-fallback.jpg';
+        return $value ? $value : '/avatar-fallback.jpg';
     }
 }
