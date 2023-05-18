@@ -1,10 +1,10 @@
-<x-profile_header :user="$user" :postCount="$postCount" :isFollowing="$isFollowing">
+<x-profile_header :userData="$userData">
     <div class="grid gap-8 lg:grid-cols-2 mt-4">
-        @foreach ($posts as $post)
+        @foreach ($userData['posts'] as $post)
             <article
                 class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-900 dark:border-gray-700">
                 <div class="flex justify-between items-center mb-5 text-gray-500">
-                    {{-- posts topic (나중에 추가예정) --}}
+                    {{-- userData['posts'] topic (나중에 추가예정) --}}
                     <span
                         class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                         <svg class="mr-1 w-3 h-3" fill="currentColor" viewBox="0 0 20 20"
@@ -23,9 +23,9 @@
                 <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ Str::limit($post->content, 100) }}</p>
                 <div class="flex justify-between items-center">
                     <div class="flex items-center space-x-4">
-                        <a href="{{ route('user.posts', $user->name) }}" class="flex gap-4">
+                        <a href="{{ route('user.posts', $userData['user']->name) }}" class="flex gap-4">
                             <img class="w-7 h-7 rounded-full"
-                            src="/storage/avatars/{{ $user->avatar }}"
+                            src="/storage/avatars/{{ $userData['user']->avatar }}"
                                 alt="avatar" />
                             <span class="font-medium dark:text-white">
                                 {{ $post->user->name }}
@@ -46,7 +46,7 @@
             </article>
         @endforeach
     </div>
-    @if($postCount < 1)
+    @if($userData['postCount'] < 1)
         <div class="ml-auto mr-auto rounded-lg border border-gray-200 shadow-md dark:bg-gray-900 dark:border-gray-700">
             <h1 class="text-center text-white text-3xl font-semibold p-10">No Contens. :< </h1>
         </div>

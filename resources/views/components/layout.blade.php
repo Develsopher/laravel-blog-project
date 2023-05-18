@@ -100,5 +100,6 @@
             All rights reserved.
         </p>
     </footer>
+    @yield('scripts')
 </body>
 </html>

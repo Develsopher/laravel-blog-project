@@ -41,3 +41,5 @@ Route::post('/users/uploadAvatar', [UserController::class, 'uploadAvatar'])->nam
 // Follow
 Route::post('/follow/{user:name}', [FollowController::class, 'follow'])->name('follow')->middleware('auth');
 Route::post('/unfollow/{user:name}', [FollowController::class, 'unfollow'])->name('unfollow')->middleware('auth');
+Route::get('/{user:name}/followers', [FollowController::class, 'followers'])->name('followers')->middleware('auth');
+Route::get('/{user:name}/followings', [FollowController::class, 'followings'])->name('followings')->middleware('auth');

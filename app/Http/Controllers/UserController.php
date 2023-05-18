@@ -7,15 +7,13 @@ use App\Models\Follow;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
 {
-    public function posts(User $user)
+    private function getUserData($user)
     {
-        $posts = $user->posts()->latest()->get();
-        $postsCount = $user->posts()->count();
         $isFollowing = 0;
-
         // 내가 특정 상대를 팔로잉하고 있는가?
         if(auth()->check()) {
             $isFollowing = Follow::where([
@@ -24,7 +22,17 @@ class UserController extends Controller
             ])->count();
         }
 
-        return view('user.posts', ['user' => $user, 'postCount' => $postsCount, 'posts' => $posts, 'isFollowing' => $isFollowing]);
+        $posts = $user->posts()->latest()->get();
+        $postCount = $user->posts()->count();
+
+        View::share('userData', compact(['user', 'posts', 'postCount', 'isFollowing']));
+    }
+
+    public function posts(User $user)
+    {
+        $this->getUserData($user);
+
+        return view('user.posts');
     }
 
     public function manageAvatar(User $user)
