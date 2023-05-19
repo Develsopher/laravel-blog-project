@@ -5,9 +5,11 @@
                 class="flex justify-between items-center bg-gray-900 border-gray-200 rounded-lg shadow-sm mt-4 px-10 py-4">
                 <img src="/storage/avatars/{{ $follower->followerUser->avatar }}" alt="avatar"
                     class="w-12 h-12 rounded-full">
-                <div class="text-white">{{ $follower->followerUser->name }}</div>
+                <a href="{{ route('user.posts', $follower->followerUser->name) }}">
+                    <div class="text-white">{{ $follower->followerUser->name }}</div>
+                </a>
                 @foreach ($userData['user']->following as $following)
-                    @if ($following->followingUser->id  === $follower->followerUser->id)
+                    @if ($following->followingUser->id === $follower->followerUser->id)
                         {{-- Am i following ? YES --}}
                         <button type="submit"
                             class="rounded-lg text-white bg-red-800 hover:bg-red-400 focust:outlien-none text-sm px-5 py-2.5 text-center">
