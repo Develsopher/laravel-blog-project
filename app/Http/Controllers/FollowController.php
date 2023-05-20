@@ -60,7 +60,7 @@ class FollowController extends Controller
     {
         $this->getUserData($user);
 
-        return view('user.followers');
+        return view('user.followers', compact('user'));
     }
 
     public function followings(User $user)
