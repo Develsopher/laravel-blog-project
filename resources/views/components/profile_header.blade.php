@@ -37,19 +37,19 @@
                 </div>
                 {{-- headers's posting count --}}
                 <a href="{{ route('user.posts', $userData['user']->name) }}" class="flex flex-col justify-center items-center">
-                    <p class="text-white">Posts</p>
-                    <p class="text-white text-xl font-semibold">{{ $userData['postCount'] }}</p>
+                    <p class=" {{ Request::segment(2) == "posts" ? "text-gray-900" : "text-white" }}">Posts</p>
+                    <p class=" {{ Request::segment(2) == "posts" ? "text-gray-900" : "text-white" }} text-xl font-semibold">{{ $userData['postCount'] }}</p>
                 </a>
 
                 {{-- header's followers count --}}
                 <a href="{{ route('followers', $userData['user']->name) }}" class="flex flex-col justify-center items-center">
-                    <p class="text-white">Followers</p>
-                    <p class="text-white text-xl font-semibold">{{ $userData['user']->followers->count() }}</p>
+                    <p class="{{ Request::segment(2) == "followers" ? "text-gray-900" : "text-white" }}">Followers</p>
+                    <p class="{{ Request::segment(2) == "followers" ? "text-gray-900" : "text-white" }} text-xl font-semibold">{{ $userData['user']->followers->count() }}</p>
                 </a>
                 {{-- header's following count --}}
                 <a href="{{ route('followings', $userData['user']->name) }}" class="flex flex-col justify-center items-center">
-                    <p class="text-white">Following</p>
-                    <p class="text-white text-xl font-semibold">{{ $userData['user']->following->count() }}</p>
+                    <p class="{{ Request::segment(2) == "followings" ? "text-gray-900" : "text-white" }}">Following</p>
+                    <p class="{{ Request::segment(2) == "followings" ? "text-gray-900" : "text-white" }} text-xl font-semibold">{{ $userData['user']->following->count() }}</p>
                 </a>
             </div>
             {{-- profile's body (my posts, followers, followings, follwers' posting etc anyone) --}}
