@@ -20,14 +20,14 @@
                             <form action="{{ route('unfollow', $userData['user']->name) }}" method="POST">
                                 @csrf
                                 <button type="submit"
-                                    class="rounded-lg text-white bg-red-800 hover:bg-red-400 focust:outlien-none text-sm px-5 py-2.5 text-center">-
+                                    class="rounded-lg text-white bg-red-800 hover:bg-red-400 focust:outlien-none text-sm px-5 py-2.5 text-center">
                                     Unfollow</button>
                             </form>
                         @else
                             <form action="{{ route('follow', $userData['user']->name) }}" method="POST">
                                 @csrf
                                 <button type="submit"
-                                    class="rounded-lg text-white bg-blue-800 hover:bg-blue-400 focust:outlien-none text-sm px-5 py-2.5 text-center">+
+                                    class="rounded-lg text-white bg-blue-800 hover:bg-blue-400 focust:outlien-none text-sm px-5 py-2.5 text-center">
                                     Follow</button>
                             </form>
                         @endif
