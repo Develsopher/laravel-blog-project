@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $myName = 'June';
-        $fruits = ['apple', 'banana', 'carrot'];
+        return view('home.guest');
+    }
 
-        return view('home', ['name' => $myName, 'fruits' => $fruits]);
+    public function feed()
+    {
+        $myPosts = auth()->user()->posts;
+        $followingPosts = auth()->user()->feedPosts;
+        $feeds = $myPosts->merge($followingPosts)->sortByDesc('created_at')->paginate(3);
+
+        return view('home.authenticated', ['feeds' => $feeds]);
     }
 }

@@ -13,15 +13,6 @@ class LoginController extends Controller
     // Before Login : Loign & Sign Up.
     // After Login : NavBar & Feed i did follow.
 
-    public function index()
-    {
-        if (auth()->check()) {
-            return view('home.authenticated');
-        } else {
-            return view('home.guest');
-        }
-    }
-
     public function signup(Request $request)
     {
         $incomingFields = $request->validate([
@@ -53,7 +44,7 @@ class LoginController extends Controller
             if($user->isAdmin === 1) {
                 return redirect('/admin');
             }else {
-                return redirect('/')->with('success', 'You have successfully logged in.');
+                return redirect('/feed')->with('success', 'You have successfully logged in.');
             }
         } else {
             return redirect('/')->with('failure', 'Invalid Login.');

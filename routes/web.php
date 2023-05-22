@@ -18,7 +18,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [LoginController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('guest');
+Route::get('/feed', [HomeController::class, 'feed'])->name('feed')->middleware('auth');
+
 Route::post('/signup', [LoginController::class, 'signup'])->middleware('guest');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->middleware('auth');

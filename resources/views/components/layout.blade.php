@@ -9,11 +9,11 @@
     @vite('resources/js/app.js')
 </head>
 
-<body class="h-screen">
+<body class="h-full bg-gray-700">
 
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
         <div class="flex items-center justify-between mx-10 p-4">
-            <a href="{{ route('home') }}" class="flex items-center">
+            <a href="{{ auth()->check() ? route('feed') : route('home') }}" class="flex items-center">
                 <img src="/images/code-break.svg" class="h-8 mr-3" alt="Flowbite Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Develsopher's
                     Blog</span>
