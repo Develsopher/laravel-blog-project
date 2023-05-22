@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="h-full bg-gray-700 flex justify-center items-center">
+    <div class="h-full flex justify-center items-center">
 
         <div class="container mx-auto  p-10 bg-gray-900 rounded-xl drop-shadow-lg">
             <div class="grid grid-cols-4">

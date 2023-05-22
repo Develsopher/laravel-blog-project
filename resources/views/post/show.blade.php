@@ -1,5 +1,5 @@
 <x-layout>
-    <div class=" bg-gray-700 p-10">
+    <div class="h-full p-10">
         <div class="mt-2 flex justify-end items-center space-x-2">
             @can('update', $post)
                 <button type="button" id="edit_button">수정하기</button>

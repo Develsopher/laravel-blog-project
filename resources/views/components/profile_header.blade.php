@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="h-full bg-gray-700">
+    <div class="h-full">
         <div class="container mx-auto p-10">
             {{-- posts's header --}}
             <div class="grid grid-cols-4 px-44">

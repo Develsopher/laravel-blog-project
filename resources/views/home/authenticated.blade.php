@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="bg-gray-700">
+    <div class="h-full">
         <div class="container mx-auto p-10">
             <div class="grid gap-8 mt-4">
                 @forelse ($feeds as $feed)
