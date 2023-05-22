@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout :doctitle="$post->title">
     <div class="h-full p-10">
         <div class="mt-2 flex justify-end items-center space-x-2">
             @can('update', $post)

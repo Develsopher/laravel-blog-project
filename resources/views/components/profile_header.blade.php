@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout doctitle="{{ $userData['user']->name }}'s Profile">
     <div class="h-full">
         <div class="container mx-auto p-10">
             {{-- posts's header --}}
