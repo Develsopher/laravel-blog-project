@@ -1,51 +1,43 @@
 <x-layout :doctitle="$post->title">
-    <div class="h-full p-10">
-        <div class="mt-2 flex justify-end items-center space-x-2">
-            @can('update', $post)
-                <button type="button" id="edit_button">수정하기</button>
-            @endcan
-            @can('delete', $post)
-                <form id="delete_form" action="/post/{{ $post->id }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                </form>
-                <button type="button" onclick="handleDelete()"><img class="w-5 h-5" src="/images/delete-icon.svg" /></button>
-            @endcan
-        </div>
-
-        <form action="/post/{{ $post->id }}" method="POST">
-            @csrf
-            @method('PUT')
-            <h1 class="text-3xl text-center text-white">The Post # {{ $post->id }}</h1>
-            <div class="space-y-8 mt-8 px-52">
-                <div>
-                    <label for="title" class="block mb-2 text-md font-medium text-white">Title</label>
-                    <input type="text" name="title" value="{{ $post->title }}"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        disabled required>
+    <div class="h-full flex justify-center items-center">
+        <div class="container bg-white width-4/5 max-w-screen-md rounded-md px-20 py-10 shadow-lg shadow-gray-500">
+            <div class="mt-2 flex justify-end items-center space-x-2">
+                @can('update', $post)
+                    <button type="button" id="edit_button">수정하기</button>
+                @endcan
+                @can('delete', $post)
+                    <form id="delete_form" action="/post/{{ $post->id }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                    <button type="button" onclick="handleDelete()"><img class="w-5 h-5" src="/images/delete-icon.svg" /></button>
+                @endcan
+            </div>
+            <form action="/post/{{ $post->id }}" method="POST">
+                @csrf
+                @method('PUT')
+                <h1 class="text-3xl text-center">The Post # {{ $post->id }}</h1>
+                <div class="flex flex-col mt-4">
+                    <label for="title" class="text-xl">Title</label>
+                    <input type="text" name="title" value="{{ $post->title }}" class="border border-gray-300 rounded-lg p-2.5 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-300" placeholder="Enter the title..." disabled required>
                     @error('title')
                         <p class="m-0 text-sm text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
-                <div>
-                    <label for="content" class="block mb-2 text-md font-medium text-white">Content</label>
-                    <textarea type="text" name="content"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        style="height:350px;" disabled required>{{ $post->content }}</textarea>
+                <div class="flex flex-col mt-4">
+                    <label for="content" class="text-xl">Content</label>
+                    <textarea name="content" cols="30" rows="10" class="border border-gray-300 rounded-lg p-2.5 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-300" placeholder="Enter the Contents..." disabled required>{{  $post->content  }}</textarea>
                     @error('content')
-                        <p class="m-0 text-sm text-red-400">{{ $message }}</p>
+                    <p class="m-0 text-sm text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
-            </div>
-            <div class="flex justify-center mt-4">
-                <button type="submit" id="save_button"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hidden">Edit
-                    The Post</button>
-                <a href="{{ route('home') }}"
-                    class="ml-4 text-white bg-gray-800 hover:bg-gray-400 focus:outline-none rounded-lg text-sm px-5 py-2.5 text-center">Return
-                    To Main</a>
-            </div>
-        </form>
+                <div class="flex justify-center mt-4 gap-x-4">
+                    <button type="submit" id="save_button" class="bg-gray-500 text-white hover:bg-gray-700 rounded-lg text-lg px-5 py-2.5 focus:outline-none focus:ring focus:ring-gray-300 hidden">Edit
+                        The Post</button>
+                    <a href="{{ route('feed') }}" class="text-lg px-5 py-2.5 text-center focus:outline-none focus:ring focus:ring-gray-300">Return To Main</a>
+                </div>
+            </form>
+        </div>
     </div>
 </x-layout>
 <script type="text/javascript">
