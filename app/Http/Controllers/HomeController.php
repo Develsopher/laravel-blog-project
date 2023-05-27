@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('home.guest');
+        return view('home');
     }
 
     public function feed()
@@ -17,6 +17,6 @@ class HomeController extends Controller
         $followingPosts = auth()->user()->feedPosts;
         $feeds = $myPosts->merge($followingPosts)->sortByDesc('created_at')->paginate(3);
 
-        return view('home.authenticated', ['feeds' => $feeds]);
+        return view('home.feed', ['feeds' => $feeds]);
     }
 }
