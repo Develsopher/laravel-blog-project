@@ -100,4 +100,13 @@ class PostsController extends Controller
 
         return redirect("/")->with('success', 'You deleted successfully :>');
     }
+
+    public function search($term) {
+        // To do Update.
+        // return Post::where('title', 'LIKE', '%' . $term . '%')->orWhere('content', 'LIKE', '%' . $term . '%')->with('user:id,name,avatar')->get();
+
+        $posts = Post::search($term)->get();
+        $posts->load('user:id,name,avatar');
+        return $posts;
+    }
 }
