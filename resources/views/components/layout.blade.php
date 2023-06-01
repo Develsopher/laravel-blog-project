@@ -29,6 +29,9 @@
                     <div>
                         <a href="#" class="text-white mr-2 header-search-icon" title="Search" data-toggle="tooltip" data-placement="bottom">Search</a>
                     </div>
+                    <div class="ml-2">
+                        <a href="#" class="text-white mr-2 header-chat-icon" title="Chat" data-toggle="tooltip" data-placement="bottom">Chat</a>
+                    </div>
                     <div class=" ml-4 flex items-center space-x-2">
                         <a href="/{{ auth()->user()->name }}/posts" role="button">
                             <img src="/storage/avatars/{{ auth()->user()->avatar }}" alt="avatar" class="w-10 h-10 rounded-full">
@@ -92,6 +95,10 @@
             All rights reserved.
         </p>
     </footer>
+    @auth
+    <?=var_dump(auth()->user()->avatar)?>
+    <div data-username="{{ auth()->user()->name }}" data-avatar="{{ auth()->user()->avatar }}"id="chat-wrapper" class="chat-wrapper shadow-ls"></div>
+    @endauth
     @yield('scripts')
     <script>
         // $('[data-toggle="tooltip"]').tooltip()

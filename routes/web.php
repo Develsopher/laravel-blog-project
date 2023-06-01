@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\FollowController;
+use App\Events\ChatMessage;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PostsController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\FollowController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +51,18 @@ Route::get('/{user:name}/followings', [FollowController::class, 'followings'])->
 
 // search
 Route::get('/search/{term}', [PostsController::class, 'search']);
+
+// Chat
+Route::post('/send-chat-message', function (Request $request) {
+    $formFields = $request->validate([
+        'textvalue' => 'required'
+    ]);
+
+    if (!trim(strip_tags($formFields['textvalue']))) {
+        return response()->noContent();
+    }
+
+    broadcast(new ChatMessage(['username' => auth()->user()->name, 'textvalue' => strip_tags($request->textvalue), 'avatar' => auth()->user()->avator]))->toOthers();
+
+    return response()->noContent();
+})->middleware('auth');
