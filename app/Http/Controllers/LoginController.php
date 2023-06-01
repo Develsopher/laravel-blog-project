@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\OurExampleEvent;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -39,7 +40,9 @@ class LoginController extends Controller
 
         if (auth()->attempt(['email' => $incomingFields['email'], 'password' => $incomingFields['password']])) {
             $request->session()->regenerate();
+            // dd(auth()->user()->name);
             // event(new OurExampleEvent(['username' => auth()->user()->name, 'action' => 'login']));
+            event(new OurExampleEvent(['username' => auth()->user()->name, 'action' => 'login']));
             $user = User::where('email', $incomingFields['email'])->first();
             if($user->isAdmin === 1) {
                 return redirect('/admin');
@@ -53,7 +56,9 @@ class LoginController extends Controller
 
     public function logout()
     {
+        event(new OurExampleEvent(['username' => auth()->user()->name, 'action' => 'logout']));
         auth()->logout();
+
         return redirect('/')->with('success', 'You have successfully logged out.');
     }
 
