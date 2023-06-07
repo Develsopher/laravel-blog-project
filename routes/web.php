@@ -1,7 +1,7 @@
 <?php
 
 use App\Events\ChatMessage;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -62,7 +62,8 @@ Route::post('/send-chat-message', function (Request $request) {
         return response()->noContent();
     }
 
-    broadcast(new ChatMessage(['username' => auth()->user()->name, 'textvalue' => strip_tags($request->textvalue), 'avatar' => auth()->user()->avator]))->toOthers();
+    broadcast(new ChatMessage(['username' => auth()->user()->name, 'textvalue' => strip_tags($request->textvalue), 'avatar' => auth()->user()->avatar]))->toOthers();
 
+    return 'merong';
     return response()->noContent();
 })->middleware('auth');

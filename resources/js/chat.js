@@ -1,39 +1,39 @@
-import DOMPurify from "dompurify"
+import DOMPurify from "dompurify";
 
 export default class Chat {
-  constructor() {
-    this.openedYet = false
-    this.chatWrapper = document.querySelector("#chat-wrapper")
-    this.avatar = document.querySelector("#chat-wrapper").dataset.avatar
-    this.openIcon = document.querySelector(".header-chat-icon")
-    this.injectHTML()
-    this.chatLog = document.querySelector("#chat")
-    this.chatField = document.querySelector("#chatField")
-    this.chatForm = document.querySelector("#chatForm")
-    this.closeIcon = document.querySelector(".chat-title-bar-close")
-    this.events()
-  }
+    constructor() {
+        this.openedYet = false;
+        this.chatWrapper = document.querySelector("#chat-wrapper");
+        this.avatar = document.querySelector("#chat-wrapper").dataset.avatar;
+        this.openIcon = document.querySelector(".header-chat-icon");
+        this.injectHTML();
+        this.chatLog = document.querySelector("#chat");
+        this.chatField = document.querySelector("#chatField");
+        this.chatForm = document.querySelector("#chatForm");
+        this.closeIcon = document.querySelector(".chat-title-bar-close");
+        this.events();
+    }
 
-  // Events
-  events() {
-    this.chatForm.addEventListener("submit", e => {
-      e.preventDefault()
-      this.sendMessageToServer()
-    })
-    this.openIcon.addEventListener("click", () => this.showChat())
-    this.closeIcon.addEventListener("click", () => this.hideChat())
-  }
+    // Events
+    events() {
+        this.chatForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            this.sendMessageToServer();
+        });
+        this.openIcon.addEventListener("click", () => this.showChat());
+        this.closeIcon.addEventListener("click", () => this.hideChat());
+    }
 
-  // Methods
-  sendMessageToServer() {
-    const test = document.createElement("div")
-    test.innerHTML = DOMPurify.sanitize(this.chatField.value)
+    // Methods
+    sendMessageToServer() {
+        const test = document.createElement("div");
+        test.innerHTML = DOMPurify.sanitize(this.chatField.value);
 
-    axios.post("/send-chat-message", { "textvalue": this.chatField.value })
+        axios.post("/send-chat-message", { textvalue: this.chatField.value });
 
-    this.chatLog.insertAdjacentHTML(
-      "beforeend",
-      DOMPurify.sanitize(`
+        this.chatLog.insertAdjacentHTML(
+            "beforeend",
+            DOMPurify.sanitize(`
     <div class="chat-self">
         <div class="chat-message">
           <div class="chat-message-inner">
@@ -43,37 +43,41 @@ export default class Chat {
         <img class="chat-avatar avatar-tiny" src="/storage/avatars/${this.avatar}">
       </div>
     `)
-    )
-    this.chatLog.scrollTop = this.chatLog.scrollHeight
-    this.chatField.value = ""
-    this.chatField.focus()
-  }
-
-  hideChat() {
-    console.log('hide!!', this.chatWrapper);
-    this.chatWrapper.classList.remove("chat--visible")
-  }
-
-  showChat() {
-    console.log('show!!');
-    if (!this.openedYet) {
-      this.openConnection()
+        );
+        this.chatLog.scrollTop = this.chatLog.scrollHeight;
+        this.chatField.value = "";
+        this.chatField.focus();
     }
-    this.openedYet = true
-    this.chatWrapper.classList.add("chat--visible")
-    this.chatField.focus()
-  }
 
-  openConnection() {
-    Echo.channel("chatchannel").listen("ChatMessage", e => {
-      this.displayMessageFromServer(e.chat)
-    })
-  }
+    hideChat() {
+        console.log("hide!!", this.chatWrapper);
+        this.chatWrapper.classList.remove("chat--visible");
+    }
 
-  displayMessageFromServer(data) {
-    this.chatLog.insertAdjacentHTML(
-      "beforeend",
-      DOMPurify.sanitize(`
+    showChat() {
+        console.log("show!!");
+        if (!this.openedYet) {
+            console.log("connection 위");
+            this.openConnection();
+        }
+        this.openedYet = true;
+        this.chatWrapper.classList.add("chat--visible");
+        this.chatField.focus();
+    }
+
+    openConnection() {
+        console.log("connection 안");
+        Echo.channel("chatchannel").listen(".ChatMessage", (e) => {
+            console.log("open connect");
+            this.displayMessageFromServer(e.chat);
+        });
+    }
+
+    displayMessageFromServer(data) {
+        console.log("from server data", data);
+        this.chatLog.insertAdjacentHTML(
+            "beforeend",
+            DOMPurify.sanitize(`
     <div class="chat-other">
         <a href="/profile/${data.username}"><img class="avatar-tiny" src="${data.avatar}"></a>
         <div class="chat-message"><div class="chat-message-inner">
@@ -82,20 +86,19 @@ export default class Chat {
         </div></div>
       </div>
     `)
-    )
-    this.chatLog.scrollTop = this.chatLog.scrollHeight
-  }
+        );
+        this.chatLog.scrollTop = this.chatLog.scrollHeight;
+    }
 
-  injectHTML() {
-    this.chatWrapper.classList.add("chat-wrapper--ready")
-    this.chatWrapper.innerHTML = `
-    <div class="chat-title-bar">Chat <span class="chat-title-bar-close"><i class="fas fa-times-circle"></i></span></div>
+    injectHTML() {
+        this.chatWrapper.classList.add("chat-wrapper--ready");
+        this.chatWrapper.innerHTML = `
+    <div class="chat-title-bar">Chat <span class="chat-title-bar-close">닫기</span></div>
     <div id="chat" class="chat-log"></div>
 
     <form id="chatForm" class="chat-form border-top">
       <input type="text" class="chat-field" id="chatField" placeholder="Type a message…" autocomplete="off">
     </form>
-    `
-  }
+    `;
+    }
 }
-

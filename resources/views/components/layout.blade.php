@@ -96,7 +96,6 @@
         </p>
     </footer>
     @auth
-    <?=var_dump(auth()->user()->avatar)?>
     <div data-username="{{ auth()->user()->name }}" data-avatar="{{ auth()->user()->avatar }}"id="chat-wrapper" class="chat-wrapper shadow-ls"></div>
     @endauth
     @yield('scripts')
