@@ -32,7 +32,6 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // dd($request->all());
         $incomingFields = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required']
@@ -40,7 +39,6 @@ class LoginController extends Controller
 
         if (auth()->attempt(['email' => $incomingFields['email'], 'password' => $incomingFields['password']])) {
             $request->session()->regenerate();
-            // dd(auth()->user()->name);
             // event(new OurExampleEvent(['username' => auth()->user()->name, 'action' => 'login']));
             event(new OurExampleEvent(['username' => auth()->user()->name, 'action' => 'login']));
             $user = User::where('email', $incomingFields['email'])->first();

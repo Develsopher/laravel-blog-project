@@ -21,7 +21,7 @@ class ChatMessage implements ShouldBroadcastNow
      */
     public function __construct($chat)
     {
-        $this->chat = ['username' => $chat['username'], 'avatar' => $chat['avatar'], 'textvalue' => $chat['textvalue']];
+        $this->chat = ['textvalue' => $chat['textvalue'], 'avatar' => $chat['avatar'], 'username' => $chat['username']];
     }
 
     /**
@@ -32,6 +32,9 @@ class ChatMessage implements ShouldBroadcastNow
     public function broadcastOn()
     {
         return new Channel('chatchannel');
-        // return new PrivateChannel('chatchannel');
+    }
+
+    public function broadcastAs(){
+        return 'chatting';
     }
 }

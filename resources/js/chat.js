@@ -28,21 +28,23 @@ export default class Chat {
     sendMessageToServer() {
         const test = document.createElement("div");
         test.innerHTML = DOMPurify.sanitize(this.chatField.value);
-
-        axios.post("/send-chat-message", { textvalue: this.chatField.value });
+        const param = {
+            textvalue: this.chatField.value,
+        };
+        axios.post("/send-chat-message", param);
 
         this.chatLog.insertAdjacentHTML(
             "beforeend",
             DOMPurify.sanitize(`
-    <div class="chat-self">
-        <div class="chat-message">
-          <div class="chat-message-inner">
-            ${test.textContent}
-          </div>
-        </div>
-        <img class="chat-avatar avatar-tiny" src="/storage/avatars/${this.avatar}">
-      </div>
-    `)
+            <div class="chat-self">
+                <div class="chat-message">
+                <div class="chat-message-inner">
+                    ${test.textContent}
+                </div>
+                </div>
+                <img class="chat-avatar avatar-tiny" src="/storage/avatars/${this.avatar}">
+            </div>
+            `)
         );
         this.chatLog.scrollTop = this.chatLog.scrollHeight;
         this.chatField.value = "";
@@ -50,14 +52,11 @@ export default class Chat {
     }
 
     hideChat() {
-        console.log("hide!!", this.chatWrapper);
         this.chatWrapper.classList.remove("chat--visible");
     }
 
     showChat() {
-        console.log("show!!");
         if (!this.openedYet) {
-            console.log("connection 위");
             this.openConnection();
         }
         this.openedYet = true;
@@ -66,26 +65,23 @@ export default class Chat {
     }
 
     openConnection() {
-        console.log("connection 안");
-        Echo.channel("chatchannel").listen(".ChatMessage", (e) => {
-            console.log("open connect");
+        Echo.channel("chatchannel").listen(".chatting", (e) => {
             this.displayMessageFromServer(e.chat);
         });
     }
 
     displayMessageFromServer(data) {
-        console.log("from server data", data);
         this.chatLog.insertAdjacentHTML(
             "beforeend",
             DOMPurify.sanitize(`
-    <div class="chat-other">
-        <a href="/profile/${data.username}"><img class="avatar-tiny" src="${data.avatar}"></a>
-        <div class="chat-message"><div class="chat-message-inner">
-          <a href="/profile/${data.username}"><strong>${data.username}:</strong></a>
-          ${data.textvalue}
-        </div></div>
-      </div>
-    `)
+            <div class="chat-other">
+                <a href="/profile/${data.username}"><img class="avatar-tiny" src="/storage/avatars/${data.avatar}"></a>
+                <div class="chat-message"><div class="chat-message-inner">
+                <a href="/profile/${data.username}"><strong>${data.username}:</strong></a>
+                ${data.textvalue}
+                </div></div>
+            </div>
+        `)
         );
         this.chatLog.scrollTop = this.chatLog.scrollHeight;
     }

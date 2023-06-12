@@ -1,7 +1,7 @@
-import './bootstrap';
-import '../css/app.css';
-import Search from './live-search';
-import Chat from './chat';
+import "./bootstrap";
+import "../css/app.css";
+import Search from "./live-search";
+import Chat from "./chat";
 
 if (document.querySelector(".header-search-icon")) {
     new Search();

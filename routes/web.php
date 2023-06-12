@@ -64,6 +64,5 @@ Route::post('/send-chat-message', function (Request $request) {
 
     broadcast(new ChatMessage(['username' => auth()->user()->name, 'textvalue' => strip_tags($request->textvalue), 'avatar' => auth()->user()->avatar]))->toOthers();
 
-    return 'merong';
-    return response()->noContent();
+    return true;
 })->middleware('auth');
