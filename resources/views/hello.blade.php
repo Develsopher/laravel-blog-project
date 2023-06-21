@@ -7,6 +7,6 @@
     <title>Hello</title>
 </head>
 <body>
-    <h1 class="text-xl font-bold underline text-green-950 ">Hello Tailwind !</h1>
+    <h1 class="text-xl font-bold underline text-green-950 ">Hello Test !</h1>
 </body>
 </html>
